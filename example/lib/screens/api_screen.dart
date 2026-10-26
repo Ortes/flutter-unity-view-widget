@@ -5,7 +5,7 @@ import 'package:flutter_unity_widget/flutter_unity_widget.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 
 class ApiScreen extends StatefulWidget {
-  const ApiScreen({Key? key}) : super(key: key);
+  const ApiScreen({super.key});
 
   @override
   State<ApiScreen> createState() => _ApiScreenState();
@@ -47,11 +47,11 @@ class _ApiScreenState extends State<ApiScreen> {
               fullscreen: true,
               useAndroidViewSurface: false,
             ),
-            PointerInterceptor(
-              child: Positioned(
-                bottom: 20,
-                left: 20,
-                right: 20,
+            Positioned(
+              bottom: 20,
+              left: 20,
+              right: 20,
+              child: PointerInterceptor(
                 child: Card(
                   elevation: 10,
                   child: Column(
@@ -148,7 +148,7 @@ class _ApiScreenState extends State<ApiScreen> {
     );
   }
 
-  void onUnityMessage(message) {
+  void onUnityMessage(dynamic message) {
     print('Received message from unity: ${message.toString()}');
   }
 

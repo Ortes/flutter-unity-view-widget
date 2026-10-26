@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
+// ignore: unused_import
+import 'package:webview_flutter_web/webview_flutter_web.dart'; // used indirectly through webview_flutter_platform_interface
 
 class WebUnityWidgetView extends StatefulWidget {
   const WebUnityWidgetView({
-    Key? key,
+    super.key,
     required this.onWebViewCreated,
     required this.unityOptions,
-  }) : super(key: key);
+  });
 
   final Map<String, dynamic> unityOptions;
   final void Function() onWebViewCreated;
@@ -16,9 +18,12 @@ class WebUnityWidgetView extends StatefulWidget {
 }
 
 class _WebUnityWidgetViewState extends State<WebUnityWidgetView> {
-  final WebViewController _controller = WebViewController()
-    ..loadRequest(
-      Uri.parse('${Uri.base.origin}/UnityLibrary/index.html'),
+  final PlatformWebViewController _controller = PlatformWebViewController(
+    const PlatformWebViewControllerCreationParams(),
+  )..loadRequest(
+      LoadRequestParams(
+        uri: Uri.parse('${_getBasePath()}/UnityLibrary/index.html'),
+      ),
     );
 
   @override
@@ -34,6 +39,14 @@ class _WebUnityWidgetViewState extends State<WebUnityWidgetView> {
 
   @override
   Widget build(BuildContext context) {
-    return WebViewWidget(controller: _controller);
+    return PlatformWebViewWidget(
+      PlatformWebViewWidgetCreationParams(controller: _controller),
+    ).build(context);
+  }
+
+  static String _getBasePath() {
+    var prefix = Uri.base.origin + Uri.base.path;
+    if (prefix.endsWith("/")) prefix = prefix.substring(0, prefix.length - 1);
+    return prefix;
   }
 }

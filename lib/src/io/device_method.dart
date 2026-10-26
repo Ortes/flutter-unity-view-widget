@@ -74,10 +74,10 @@ class MethodChannelUnityWidget extends UnityWidgetPlatform {
     FlutterUnityController.instance.stream.listen((event) {
       switch (event.eventType) {
         case UnityEventTypes.OnUnityViewCreated:
-          _unityStreamController.add(UnityCreatedEvent(0, event.data));
+          _unityStreamController.add(UnityCreatedEvent(0));
           break;
         case UnityEventTypes.OnUnityPlayerUnloaded:
-          _unityStreamController.add(UnityLoadedEvent(0, event.data));
+          _unityStreamController.add(UnityLoadedEvent(0));
           break;
         case UnityEventTypes.OnUnityMessage:
           _unityStreamController.add(UnityMessageEvent(_unityId, event.data));
@@ -88,11 +88,11 @@ class MethodChannelUnityWidget extends UnityWidgetPlatform {
           break;
         case UnityEventTypes.OnViewAttached:
           _unityStreamController.add(UnityAttachedEvent(
-              int.parse((event.data as String).split('-').last), event.data));
+              int.parse((event.data as String).split('-').last)));
           break;
         case UnityEventTypes.OnViewDetached:
           _unityStreamController.add(UnityDetachedEvent(
-              int.parse((event.data as String).split('-').last), event.data));
+              int.parse((event.data as String).split('-').last)));
           break;
         case UnityEventTypes.OnUnityPlayerReInitialize:
         case UnityEventTypes.OnViewReattached:
@@ -177,14 +177,15 @@ class MethodChannelUnityWidget extends UnityWidgetPlatform {
     bool? unityWebSource,
     String? unitySrcUrl,
   }) {
-    final String _viewType = 'plugin.xraph.com/unity_view';
+    // ignore: no_leading_underscores_for_local_identifiers
+    const String _viewType = 'plugin.xraph.com/unity_view';
 
     if (useAndroidViewSurf != null) useAndroidViewSurface = useAndroidViewSurf;
 
     final Map<String, dynamic> creationParams = unityOptions;
 
     if (defaultTargetPlatform == TargetPlatform.windows) {
-      return WindowsUnityWidgetView();
+      return const WindowsUnityWidgetView();
     }
 
     if (defaultTargetPlatform == TargetPlatform.android) {

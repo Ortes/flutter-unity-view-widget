@@ -6,8 +6,8 @@ import 'package:flutter_unity_widget/src/facade_controller.dart';
 import 'helpers/misc.dart';
 
 class UnityWidget extends StatefulWidget {
-  UnityWidget({
-    Key? key,
+  const UnityWidget({
+    super.key,
     this.onUnityCreated,
     this.onUnityMessage,
     this.fullscreen = false,
@@ -26,7 +26,7 @@ class UnityWidget extends StatefulWidget {
     this.borderRadius = BorderRadius.zero,
     this.layoutDirection,
     this.hideStatus = false,
-  }): super(key: key);
+  });
 
   ///Event fires when the unity player is created.
   final UnityCreatedCallback? onUnityCreated;
@@ -85,7 +85,7 @@ class UnityWidget extends StatefulWidget {
   final TextDirection? layoutDirection;
 
   @override
-  _UnityWidgetState createState() => _UnityWidgetState();
+  State<UnityWidget> createState() => _UnityWidgetState();
 }
 
 class _UnityWidgetState extends State<UnityWidget> {

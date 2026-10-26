@@ -1,10 +1,12 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_unity_widget/flutter_unity_widget.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 
 class OrientationScreen extends StatefulWidget {
-  const OrientationScreen({Key? key}) : super(key: key);
+  const OrientationScreen({super.key});
 
   @override
   State<OrientationScreen> createState() => _OrientationScreenState();
@@ -38,11 +40,11 @@ class _OrientationScreenState extends State<OrientationScreen> {
               onUnityMessage: onUnityMessage,
               useAndroidViewSurface: true,
             ),
-            PointerInterceptor(
-              child: Positioned(
-                bottom: 20,
-                left: 20,
-                right: 20,
+            Positioned(
+              bottom: 20,
+              left: 20,
+              right: 20,
+              child: PointerInterceptor(
                 child: Card(
                   elevation: 10,
                   child: Column(
@@ -97,12 +99,12 @@ class _OrientationScreenState extends State<OrientationScreen> {
     );
   }
 
-  void onUnityMessage(message) {
+  void onUnityMessage(dynamic message) {
     print('Received message from unity: ${message.toString()}');
   }
 
   // Callback that connects the created controller to the unity controller
-  void onUnityCreated(controller) {
+  void onUnityCreated(UnityWidgetController controller) {
     _unityWidgetController = controller;
   }
 }

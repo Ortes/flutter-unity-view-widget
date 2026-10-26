@@ -61,10 +61,10 @@ class FlutterUnityMethodChannel extends FlutterUnityPlatform {
         final payload = EventDataPayload.fromMap(arguments)!;
         switch (payload.eventType) {
           case UnityEventTypes.OnUnityViewCreated:
-            _unityStreamController.add(UnityCreatedEvent(0, payload.data));
+            _unityStreamController.add(UnityCreatedEvent(0));
             break;
           case UnityEventTypes.OnUnityPlayerUnloaded:
-            _unityStreamController.add(UnityLoadedEvent(0, payload.data));
+            _unityStreamController.add(UnityLoadedEvent(0));
             break;
           case UnityEventTypes.OnUnityMessage:
             _unityStreamController.add(UnityMessageEvent(0, payload.data));
@@ -80,13 +80,11 @@ class FlutterUnityMethodChannel extends FlutterUnityPlatform {
             break;
           case UnityEventTypes.OnViewAttached:
             _unityStreamController.add(UnityAttachedEvent(
-                int.parse((payload.data as String).split('-').last),
-                payload.data));
+                int.parse((payload.data as String).split('-').last)));
             break;
           case UnityEventTypes.OnViewDetached:
             _unityStreamController.add(UnityDetachedEvent(
-                int.parse((payload.data as String).split('-').last),
-                payload.data));
+                int.parse((payload.data as String).split('-').last)));
             break;
         }
 
